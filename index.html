@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventari vernici</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="module" src="script.js"></script>
+</head>
+<body>
+
+    <div id="authSection">
+        <h2>Autenticazione</h2>
+        <div id="loginForm">
+            <input type="email" id="emailInput" placeholder="Email" required>
+            <input type="password" id="passwordInput" placeholder="Password" required>
+            <button id="loginButton">Accedi</button>
+            <button id="signupButton">Registrati</button>
+            <p id="authMessage"></p>
+        </div>
+        <button id="logoutButton" style="display:none;">Esci</button>
+    </div>
+
+    <h1>Avanzi in magazzino</h1>
+
+    <div id="addPaintForm" style="display:none;">
+        <h2>Aggiungi nuovo colore</h2>
+        <input type="text" id="colorCodeInput" placeholder="Codice colore (es., RAL 7016)" required>
+        <input type="text" id="descriptionInput" placeholder="Descrizione (esemp., Grigio antracite)">
+        <select id="categoryInput" required>
+            <option value="" disabled selected>Seleziona categoria</option>
+            <option value="ESTERNO">ESTERNO</option>
+            <option value="TRASPIRANTE">TRASPIRANTE</option>
+            <option value="LAVABILE">LAVABILE</option>
+            <option value="SMALTI MURALI">SMALTI MURALI</option>
+            <option value="SMALTI ALL'ACQUA">SMALTI ALL'ACQUA</option>
+            <option value="SMALTI AL SOLVENTE">SMALTI AL SOLVENTE</option>
+            <option value="FERROMICACEO">FERROMICACEO</option>
+            <option value="FINITURE PER LEGNO">FINITURE PER LEGNO</option>
+            <option value="FONDI">FONDI</option>
+        </select>
+        <input type="text" id="producerInput" placeholder="Ditta produttrice (es., Sikkens)">
+        <input type="text" id="customerInput" placeholder="Cliente (opzionale)">
+        <input type="number" id="quantityInput" placeholder="Quantita" step="0.1" required>
+        <input type="text" id="unitInput" placeholder="Unita (esemp., L, kg)" value="L">
+        <button id="addPaintButton" disabled>Aggiungi vernice</button>
+    </div>
+
+    <hr>
+
+    <input type="text" id="searchInput" placeholder="Cerca in tutte le scorte...">
+
+    <h2>Vernici in magazzino</h2>
+    <div id="paintList">
+        <p>Caricamento...</p>
+    </div>
+
+    </body>
+</html>

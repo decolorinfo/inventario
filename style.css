@@ -1,0 +1,139 @@
+body {
+  font-family: sans-serif;
+  margin: 20px;
+}
+
+h1, h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+#authSection, #addPaintForm {
+  margin-bottom: 20px;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+#loginForm input[type="email"],
+#loginForm input[type="password"] {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  box-sizing: border-box;
+}
+
+#loginForm button {
+  padding: 10px 15px;
+  margin-right: 10px;
+  border: none;
+  border-radius: 3px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+}
+
+#loginForm button:hover {
+  background-color: #0056b3;
+}
+
+#logoutButton {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 3px;
+  background-color: #dc3545;
+  color: white;
+  cursor: pointer;
+  display: block;
+  margin-top: 10px;
+}
+
+#logoutButton:hover {
+  background-color: #c82333;
+}
+
+#addPaintForm input[type="text"],
+#addPaintForm input[type="number"],
+#addPaintForm select {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  box-sizing: border-box;
+}
+
+#addPaintForm button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 3px;
+  background-color: #28a745;
+  color: white;
+  cursor: pointer;
+}
+
+#addPaintForm button:hover:enabled {
+  background-color: #1e7e34;
+}
+
+#addPaintForm button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+#searchInput {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  box-sizing: border-box;
+}
+
+#paintList {
+  margin-top: 15px;
+}
+
+.paint-item {
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #eee;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  gap: 5px;
+  align-items: center;
+}
+
+.paint-item > div {
+  margin-bottom: 5px;
+}
+
+.paint-item .delete-button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 3px;
+  background-color: #dc3545;
+  color: white;
+  cursor: pointer;
+}
+
+.paint-item .delete-button:hover:enabled {
+  background-color: #c82333;
+}
+
+.paint-item .delete-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.loading {
+  text-align: center;
+  font-style: italic;
+  color: #777;
+}
