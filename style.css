@@ -1,16 +1,17 @@
 body {
   font-family: sans-serif;
-  margin: 20px;
+  margin: 15px; /* Ridotto il margine predefinito per schermi piccoli */
+  line-height: 1.6;
 }
 
 h1, h2 {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 15px; /* Ridotto il margine predefinito per schermi piccoli */
 }
 
 #authSection, #addPaintForm {
-  margin-bottom: 20px;
-  padding: 15px;
+  margin-bottom: 15px;
+  padding: 10px; /* Ridotto il padding predefinito per schermi piccoli */
   border: 1px solid #ccc;
   border-radius: 5px;
 }
@@ -18,22 +19,23 @@ h1, h2 {
 #loginForm input[type="email"],
 #loginForm input[type="password"] {
   display: block;
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
+  width: calc(100% - 20px); /* Assicura che non superi il contenitore con il padding */
+  padding: 8px;
+  margin-bottom: 8px;
   border: 1px solid #ddd;
   border-radius: 3px;
   box-sizing: border-box;
 }
 
 #loginForm button {
-  padding: 10px 15px;
-  margin-right: 10px;
+  padding: 8px 12px;
+  margin-right: 8px;
   border: none;
   border-radius: 3px;
   background-color: #007bff;
   color: white;
   cursor: pointer;
+  font-size: 0.9em; /* Ridotta la dimensione del font per schermi piccoli */
 }
 
 #loginForm button:hover {
@@ -41,14 +43,15 @@ h1, h2 {
 }
 
 #logoutButton {
-  padding: 10px 15px;
+  padding: 8px 12px;
   border: none;
   border-radius: 3px;
   background-color: #dc3545;
   color: white;
   cursor: pointer;
   display: block;
-  margin-top: 10px;
+  margin-top: 8px;
+  font-size: 0.9em; /* Ridotta la dimensione del font per schermi piccoli */
 }
 
 #logoutButton:hover {
@@ -59,21 +62,23 @@ h1, h2 {
 #addPaintForm input[type="number"],
 #addPaintForm select {
   display: block;
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
+  width: calc(100% - 20px); /* Assicura che non superi il contenitore con il padding */
+  padding: 8px;
+  margin-bottom: 8px;
   border: 1px solid #ddd;
   border-radius: 3px;
   box-sizing: border-box;
+  font-size: 0.9em; /* Ridotta la dimensione del font per schermi piccoli */
 }
 
 #addPaintForm button {
-  padding: 10px 15px;
+  padding: 8px 12px;
   border: none;
   border-radius: 3px;
   background-color: #28a745;
   color: white;
   cursor: pointer;
+  font-size: 0.9em; /* Ridotta la dimensione del font per schermi piccoli */
 }
 
 #addPaintForm button:hover:enabled {
@@ -85,17 +90,18 @@ h1, h2 {
   cursor: not-allowed;
 }
 
-#searchInput {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 15px;
+#searchInput, #archiveSearchInput { /* Applica stile a entrambi i campi di ricerca */
+  width: calc(100% - 20px); /* Assicura che non superi il contenitore con il padding */
+  padding: 8px;
+  margin-bottom: 12px;
   border: 1px solid #ddd;
   border-radius: 3px;
   box-sizing: border-box;
+  font-size: 0.9em; /* Ridotta la dimensione del font per schermi piccoli */
 }
 
-#paintList {
-  margin-top: 15px;
+#paintList, #archivedPaintList { /* Aggiunto #archivedPaintList */
+  margin-top: 12px;
 }
 
 .paint-item {
@@ -104,36 +110,375 @@ h1, h2 {
   border: 1px solid #eee;
   border-radius: 5px;
   background-color: #f9f9f9;
-  display: grid;
-  grid-template-columns: auto auto auto;
-  gap: 5px;
-  align-items: center;
+  display: flex; /* Cambiato a flex per una migliore gestione su schermi piccoli */
+  flex-direction: column; /* Imposta gli elementi in colonna su schermi piccoli */
+  gap: 8px;
+  align-items: flex-start; /* Allinea gli elementi a sinistra su schermi piccoli */
 }
 
 .paint-item > div {
-  margin-bottom: 5px;
+  margin-bottom: 0; /* Rimosso il margine inferiore per gli elementi interni */
+  width: 100%; /* Fai in modo che ogni informazione occupi una riga su schermi piccoli */
 }
 
-.paint-item .delete-button {
+body {
+  font-family: sans-serif;
+  margin: 15px; /* Ridotto il margine predefinito per schermi piccoli */
+  line-height: 1.6;
+}
+
+h1, h2 {
+  text-align: center;
+  margin-bottom: 15px; /* Ridotto il margine predefinito per schermi piccoli */
+}
+
+#authSection, #addPaintForm {
+  margin-bottom: 15px;
+  padding: 10px; /* Ridotto il padding predefinito per schermi piccoli */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+#loginForm input[type="email"],
+#loginForm input[type="password"] {
+  display: block;
+  width: calc(100% - 20px); /* Assicura che non superi il contenitore con il padding */
+  padding: 8px;
+  margin-bottom: 8px;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  box-sizing: border-box;
+}
+
+#loginForm button {
+  padding: 8px 12px;
+  margin-right: 8px;
+  border: none;
+  border-radius: 3px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  font-size: 0.9em; /* Ridotta la dimensione del font per schermi piccoli */
+}
+
+#loginForm button:hover {
+  background-color: #0056b3;
+}
+
+#logoutButton {
   padding: 8px 12px;
   border: none;
   border-radius: 3px;
   background-color: #dc3545;
   color: white;
   cursor: pointer;
+  display: block;
+  margin-top: 8px;
+  font-size: 0.9em; /* Ridotta la dimensione del font per schermi piccoli */
+}
+
+#logoutButton:hover {
+  background-color: #c82333;
+}
+
+#addPaintForm input[type="text"],
+#addPaintForm input[type="number"],
+#addPaintForm select {
+  display: block;
+  width: calc(100% - 20px); /* Assicura che non superi il contenitore con il padding */
+  padding: 8px;
+  margin-bottom: 8px;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  box-sizing: border-box;
+  font-size: 0.9em; /* Ridotta la dimensione del font per schermi piccoli */
+}
+
+#addPaintForm button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 3px;
+  background-color: #28a745;
+  color: white;
+  cursor: pointer;
+  font-size: 0.9em; /* Ridotta la dimensione del font per schermi piccoli */
+}
+
+#addPaintForm button:hover:enabled {
+  background-color: #1e7e34;
+}
+
+#addPaintForm button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+#searchInput, #archiveSearchInput { /* Applica stile a entrambi i campi di ricerca */
+  width: calc(100% - 20px); /* Assicura che non superi il contenitore con il padding */
+  padding: 8px;
+  margin-bottom: 12px;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  box-sizing: border-box;
+  font-size: 0.9em; /* Ridotta la dimensione del font per schermi piccoli */
+}
+
+#paintList, #archivedPaintList { /* Aggiunto #archivedPaintList */
+  margin-top: 12px;
+}
+
+.paint-item {
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #eee;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  display: flex; /* Cambiato a flex per una migliore gestione su schermi piccoli */
+  flex-direction: column; /* Imposta gli elementi in colonna su schermi piccoli */
+  gap: 8px;
+  align-items: flex-start; /* Allinea gli elementi a sinistra su schermi piccoli */
+}
+
+.paint-item > div {
+  margin-bottom: 0; /* Rimosso il margine inferiore per gli elementi interni */
+  width: 100%; /* Fai in modo che ogni informazione occupi una riga su schermi piccoli */
+}
+
+.paint-item strong {
+  display: inline-block; /* Forza lo strong a rimanere sulla stessa riga del testo */
+  width: auto; /* Permetti alla larghezza di adattarsi al contenuto */
+  margin-right: 5px;
+}
+
+.paint-item button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 3px;
+  color: white;
+  cursor: pointer;
+  font-size: 0.8em; /* Ridotta la dimensione del font per il pulsante su schermi piccoli */
+  width: auto; /* Permetti alla larghezza del pulsante di adattarsi su schermi piccoli */
+  box-sizing: border-box;
+  margin-right: 5px; /* Spazio tra i pulsanti */
+  white-space: nowrap; /* Impedisce al testo del pulsante di andare a capo */
+}
+
+.paint-item .edit-button {
+  background-color: #007bff; /* Blue color for edit */
+}
+
+.paint-item .edit-button:hover:enabled {
+  background-color: #0056b3;
+}
+
+.paint-item .delete-button {
+  background-color: #dc3545; /* Red color for delete */
 }
 
 .paint-item .delete-button:hover:enabled {
   background-color: #c82333;
 }
 
-.paint-item .delete-button:disabled {
+.paint-item .permanent-delete-button {
+  background-color: #dc3545; /* Red color */
+}
+
+.paint-item .permanent-delete-button:hover:enabled {
+  background-color: #c82333; /* Darker red on hover */
+}
+
+
+.paint-item button:disabled {
   background-color: #ccc;
   cursor: not-allowed;
 }
+
+/* Stili per i pulsanti di azione raggruppati */
+.paint-item .action-buttons {
+    display: flex; /* Use flexbox for the button container */
+    gap: 5px; /* Space between buttons */
+    width: 100%; /* Occupy full width on small screens */
+    justify-content: flex-end; /* Align buttons to the right on flex/small screens */
+    flex-wrap: wrap; /* Permetti ai pulsanti di andare a capo se lo spazio non è sufficiente */
+}
+
+.paint-item .action-buttons button {
+    flex-grow: 1; /* Fai in modo che i pulsanti si espandano per riempire lo spazio su schermi piccoli */
+    margin-right: 0; /* Rimuovi il margine tra i pulsanti nel gruppo */
+}
+
 
 .loading {
   text-align: center;
   font-style: italic;
   color: #777;
+}
+
+/* Stili per i pulsanti di navigazione (Vai all'archivio, Torna all'inventario) */
+.nav-button {
+    display: block; /* Rendi il link o il pulsante un blocco per controllarne le dimensioni */
+    width: calc(100% - 30px); /* Occupa quasi tutta la larghezza su schermi piccoli */
+    margin: 20px auto; /* Centra il pulsante e aggiungi margine sopra e sotto */
+    padding: 15px 20px; /* Aumenta il padding per renderlo più grande */
+    text-align: center; /* Centra il testo */
+    background-color: #5a6268; /* Un colore di sfondo diverso */
+    color: white; /* Testo bianco */
+    text-decoration: none; /* Rimuovi la sottolineatura dai link */
+    border: none;
+    border-radius: 5px; /* Bordi arrotondati */
+    cursor: pointer;
+    font-size: 1.1em; /* Aumenta la dimensione del font */
+    box-sizing: border-box; /* Includi padding e border nella larghezza */
+}
+
+.nav-button:hover {
+    background-color: #343a40; /* Cambia colore al passaggio del mouse */
+}
+
+
+/* Media query per schermi medi (tablet) */
+@media (min-width: 600px) {
+  body {
+    margin: 20px;
+  }
+
+  h1, h2 {
+    margin-bottom: 20px;
+  }
+
+  #authSection, #addPaintForm {
+    padding: 15px;
+  }
+
+  #loginForm input[type="email"],
+  #loginForm input[type="password"],
+  #addPaintForm input[type="text"],
+  #addPaintForm input[type="number"],
+  #addPaintForm select,
+  #searchInput, #archiveSearchInput { /* Applica a entrambi i campi di ricerca */
+    width: 50%; /* Larghezza ridotta su schermi medi */
+  }
+
+  .paint-item {
+    flex-direction: row; /* Rimetti gli elementi in riga su schermi medi */
+    display: grid; /* Torna a grid per una maggiore precisione */
+    /* Definisci le colonne per i dati e lo spazio per i pulsanti */
+    /* Esempio: 6 colonne per i dati + 1 colonna per i pulsanti azione */
+    grid-template-columns: repeat(6, auto) 1fr;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .paint-item > div {
+    width: auto; /* Permetti alla larghezza di adattarsi al contenuto */
+    margin-bottom: 0;
+  }
+
+  .paint-item button {
+     width: auto; /* Permetti alla larghezza di adattarsi al contenuto */
+     font-size: 0.9em; /* Aumenta la dimensione del font */
+     margin-right: 5px; /* Aggiungi spazio tra i pulsanti individuali su schermi più grandi */
+  }
+
+   /* Rimuovi il layout flex per i pulsanti di azione su schermi più grandi e usa il layout grid del padre */
+  .paint-item .action-buttons {
+      display: flex; /* Torna a flex per i pulsanti anche su schermi medi per mantenere gap/allineamento */
+      width: auto; /* Lascia che la larghezza sia determinata dalla colonna grid */
+      justify-content: flex-end; /* Continua ad allineare a destra */
+      flex-wrap: nowrap; /* Evita che i pulsanti vadano a capo qui */
+      align-items: center; /* Centra verticalmente i pulsanti nel container flex */
+  }
+   .paint-item .action-buttons button {
+        flex-grow: 0; /* Non espandere i pulsanti nel container flex su schermi più grandi */
+   }
+
+   /* Stili per i pulsanti di navigazione su schermi medi */
+   .nav-button {
+       display: inline-block; /* Rendi il pulsante inline-block su schermi più grandi */
+       width: auto; /* Larghezza automatica */
+       margin: 20px 10px; /* Margine ridotto lateralmente */
+   }
+}
+
+/* Media query per schermi grandi (desktop) */
+@media (min-width: 992px) {
+  #loginForm input[type="email"],
+  #loginForm input[type="password"],
+  #addPaintForm input[type="text"],
+  #addPaintForm input[type="number"],
+  #addPaintForm select,
+  #searchInput, #archiveSearchInput { /* Applica a entrambi i campi di ricerca */
+    width: 30%; /* Larghezza ridotta su schermi grandi */
+  }
+
+  .paint-item {
+     grid-template-columns: repeat(6, auto) 1fr; /* Mantieni le colonne per info e spazio per i pulsanti */
+  }
+
+   /* Stili per i pulsanti di navigazione su schermi grandi */
+   .nav-button {
+       margin: 20px 15px; /* Margine leggermente aumentato lateralmente */
+   }
+}
+
+/* Stili per la modalità di modifica (si applicano indipendentemente dalla dimensione dello schermo) */
+.paint-item.edit-mode {
+    display: flex;
+    flex-direction: column; /* Stacca gli elementi in colonna in modalità modifica */
+    gap: 8px;
+}
+
+.paint-item.edit-mode > div {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    width: 100%; /* Occupa la larghezza disponibile */
+}
+
+.paint-item.edit-mode label {
+    width: 120px; /* Larghezza fissa per le label in modalità modifica */
+    margin-right: 10px;
+    font-weight: bold;
+    flex-shrink: 0; /* Impedisce alla label di restringersi */
+}
+
+.paint-item.edit-mode input[type="text"],
+.paint-item.edit-mode input[type="number"],
+.paint-item.edit-mode select {
+    flex-grow: 1; /* Fai in modo che gli input si espandano per riempire lo spazio */
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    box-sizing: border-box;
+}
+
+.paint-item.edit-mode .edit-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    width: 100%; /* Occupa la larghezza disponibile */
+    justify-content: flex-end; /* Allinea Salva/Annulla a destra */
+}
+
+.paint-item.edit-mode .edit-actions button {
+    flex-grow: 1; /* Fai in modo che i pulsanti Salva/Annulla si espandano */
+    margin-right: 0; /* Rimuovi il margine tra i pulsanti */
+    font-size: 0.9em;
+}
+
+.paint-item.edit-mode .save-button {
+    background-color: #28a745; /* Green for save */
+}
+
+.paint-item.edit-mode .save-button:hover {
+     background-color: #1e7e34;
+}
+
+.paint-item.edit-mode .cancel-button {
+     background-color: #ffc107; /* Yellow/Orange for cancel */
+     color: #212529; /* Dark text for contrast */
+}
+
+.paint-item.edit-mode .cancel-button:hover {
+     background-color: #e0a800;
 }
