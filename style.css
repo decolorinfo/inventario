@@ -2,6 +2,11 @@ body {
   font-family: sans-serif;
   margin: 15px; /* Ridotto il margine predefinito per schermi piccoli */
   line-height: 1.6;
+  background-image: url(2.png);
+  background-repeat: no-repeat;
+
+  background-size: cover;
+  
 }
 
 h1, h2 {
@@ -9,11 +14,30 @@ h1, h2 {
   margin-bottom: 15px; /* Ridotto il margine predefinito per schermi piccoli */
 }
 
-#authSection, #addPaintForm {
+#authSection {
   margin-bottom: 15px;
   padding: 10px; /* Ridotto il padding predefinito per schermi piccoli */
   border: 1px solid #ccc;
   border-radius: 5px;
+  /* Stili per quando l'utente NON è autenticato */
+  background-color: #f8f9fa; /* Un leggero colore di sfondo per la sezione auth */
+  transition: all 0.5s ease-in-out; /* Animazione per il cambio di stato */
+  text-align: center; /* Centra i contenuti (form e pulsante) */
+}
+
+/* Stili per la sezione autenticazione quando l'utente è autenticato */
+#authSection.authenticated {
+    border: none; /* Rimuovi il bordo quando autenticato */
+    background-color: transparent; /* Rimuovi il colore di sfondo */
+    background-image: url('1.png'); /* <<<<< CAMBIA QUESTO CON IL PERCORSO DELLA TUA IMMAGINE */
+    background-size: cover; /* Copri l'intera area */
+    background-position: center; /* Centra l'immagine */
+    background-repeat: no-repeat; /* Non ripetere l'immagine */
+    min-height: 150px; /* Imposta un'altezza minima per rendere visibile l'immagine */
+    display: flex; /* Usa flexbox per centrare il pulsante di logout */
+    justify-content: center; /* Centra orizzontalmente */
+    align-items: center; /* Centra verticalmente */
+    padding: 20px; /* Aumenta il padding per dare spazio al pulsante */
 }
 
 #loginForm input[type="email"],
@@ -49,8 +73,8 @@ h1, h2 {
   background-color: #dc3545;
   color: white;
   cursor: pointer;
-  display: block;
-  margin-top: 8px;
+  /* display: block; <-- Questo sarà gestito da script.js */
+  margin: 0; /* Rimuovi margini extra se centrato con flex */
   font-size: 0.9em; /* Ridotta la dimensione del font per schermi piccoli */
 }
 
@@ -58,127 +82,12 @@ h1, h2 {
   background-color: #c82333;
 }
 
-#addPaintForm input[type="text"],
-#addPaintForm input[type="number"],
-#addPaintForm select {
-  display: block;
-  width: calc(100% - 20px); /* Assicura che non superi il contenitore con il padding */
-  padding: 8px;
-  margin-bottom: 8px;
-  border: 1px solid #ddd;
-  border-radius: 3px;
-  box-sizing: border-box;
-  font-size: 0.9em; /* Ridotta la dimensione del font per schermi piccoli */
-}
-
-#addPaintForm button {
-  padding: 8px 12px;
-  border: none;
-  border-radius: 3px;
-  background-color: #28a745;
-  color: white;
-  cursor: pointer;
-  font-size: 0.9em; /* Ridotta la dimensione del font per schermi piccoli */
-}
-
-#addPaintForm button:hover:enabled {
-  background-color: #1e7e34;
-}
-
-#addPaintForm button:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
-}
-
-#searchInput, #archiveSearchInput { /* Applica stile a entrambi i campi di ricerca */
-  width: calc(100% - 20px); /* Assicura che non superi il contenitore con il padding */
-  padding: 8px;
-  margin-bottom: 12px;
-  border: 1px solid #ddd;
-  border-radius: 3px;
-  box-sizing: border-box;
-  font-size: 0.9em; /* Ridotta la dimensione del font per schermi piccoli */
-}
-
-#paintList, #archivedPaintList { /* Aggiunto #archivedPaintList */
-  margin-top: 12px;
-}
-
-.paint-item {
+#addPaintForm {
+  margin-bottom: 15px;
   padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #eee;
-  border-radius: 5px;
-  background-color: #f9f9f9;
-  display: flex; /* Cambiato a flex per una migliore gestione su schermi piccoli */
-  flex-direction: column; /* Imposta gli elementi in colonna su schermi piccoli */
-  gap: 8px;
-  align-items: flex-start; /* Allinea gli elementi a sinistra su schermi piccoli */
-}
-
-.paint-item > div {
-  margin-bottom: 0; /* Rimosso il margine inferiore per gli elementi interni */
-  width: 100%; /* Fai in modo che ogni informazione occupi una riga su schermi piccoli */
-}
-
-body {
-  font-family: sans-serif;
-  margin: 15px; /* Ridotto il margine predefinito per schermi piccoli */
-  line-height: 1.6;
-}
-
-h1, h2 {
-  text-align: center;
-  margin-bottom: 15px; /* Ridotto il margine predefinito per schermi piccoli */
-}
-
-#authSection, #addPaintForm {
-  margin-bottom: 15px;
-  padding: 10px; /* Ridotto il padding predefinito per schermi piccoli */
   border: 1px solid #ccc;
   border-radius: 5px;
-}
-
-#loginForm input[type="email"],
-#loginForm input[type="password"] {
-  display: block;
-  width: calc(100% - 20px); /* Assicura che non superi il contenitore con il padding */
-  padding: 8px;
-  margin-bottom: 8px;
-  border: 1px solid #ddd;
-  border-radius: 3px;
-  box-sizing: border-box;
-}
-
-#loginForm button {
-  padding: 8px 12px;
-  margin-right: 8px;
-  border: none;
-  border-radius: 3px;
-  background-color: #007bff;
-  color: white;
-  cursor: pointer;
-  font-size: 0.9em; /* Ridotta la dimensione del font per schermi piccoli */
-}
-
-#loginForm button:hover {
-  background-color: #0056b3;
-}
-
-#logoutButton {
-  padding: 8px 12px;
-  border: none;
-  border-radius: 3px;
-  background-color: #dc3545;
-  color: white;
-  cursor: pointer;
-  display: block;
-  margin-top: 8px;
-  font-size: 0.9em; /* Ridotta la dimensione del font per schermi piccoli */
-}
-
-#logoutButton:hover {
-  background-color: #c82333;
+  background-color: #f8f9fa; /* Aggiunto background anche qui */
 }
 
 #addPaintForm input[type="text"],
@@ -392,6 +301,11 @@ h1, h2 {
         flex-grow: 0; /* Non espandere i pulsanti nel container flex su schermi più grandi */
    }
 
+   /* Stili per la sezione autenticazione su schermi medi */
+   #authSection.authenticated {
+        min-height: 200px; /* Aumenta l'altezza minima su schermi medi */
+   }
+
    /* Stili per i pulsanti di navigazione su schermi medi */
    .nav-button {
        display: inline-block; /* Rendi il pulsante inline-block su schermi più grandi */
@@ -414,6 +328,11 @@ h1, h2 {
   .paint-item {
      grid-template-columns: repeat(6, auto) 1fr; /* Mantieni le colonne per info e spazio per i pulsanti */
   }
+
+  /* Stili per la sezione autenticazione su schermi grandi */
+   #authSection.authenticated {
+        min-height: 250px; /* Aumenta l'altezza minima su schermi grandi */
+   }
 
    /* Stili per i pulsanti di navigazione su schermi grandi */
    .nav-button {

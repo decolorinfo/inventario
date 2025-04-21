@@ -32,8 +32,9 @@ let currentUser = null;
 
 // UID degli utenti autorizzati alla modifica (Sostituisci con gli UID reali)
 // Assicurati che questi UID corrispondano alle tue Security Rules di Firebase
-const authorizedUser1 = '1twJRLWzqYMLhQXxR4afGUYkXoF2'; // <<<<<<<<<<<<<<<< SOSTITUISCI QUESTO
-const authorizedUser2 = 'xt3XhnoIfbZYQ5Uxa0xA7mN4xai2'; // <<<<<<<<<<<<<<<< SOSTITUISCI QUESTO
+const authorizedUser1 = '1twJRLWzqYMLhQXxR4afGUYkXoF2'; // <<<<<<<<<<<<<<<< SOSTITUISCI QUESTO CON GLI UID REALI
+const authorizedUser2 = 'xt3XhnoIfbZYQ5Uxa0xA7mN4xai2'; // <<<<<<<<<<<<<<<< SOSTITUISCI QUESTO CON GLI UID REALI
+
 
 // Funzione per verificare se l'utente corrente è autorizzato alla modifica (e quindi anche a eliminare dall'archivio)
 function isUserAuthorized() {
@@ -44,12 +45,13 @@ function isUserAuthorized() {
 // Listen for changes in authentication state (Questo listener deve essere globale)
 onAuthStateChanged(auth, (user) => {
     currentUser = user;
-    // Chiamiamo updateAuthState solo se siamo sulla pagina principale
-    if (typeof updateAuthState === 'function') { // Verifichiamo se la funzione è definita
+    // Chiamiamo updateAuthState solo se siamo sulla pagina principale (index.html)
+    // Usiamo un controllo più robusto per verificare se la funzione è definita
+    // e se gli elementi necessari esistono sulla pagina corrente
+    if (document.getElementById('paintList') && typeof updateAuthState === 'function') {
          updateAuthState();
     }
     // Aggiorna lo stato dei pulsanti di eliminazione permanente nell'archivio (se l'elemento esiste)
-    // Questo deve avvenire sia all'avvio che al cambio di stato auth, ma solo sulla pagina archivio
     if (archivedPaintListDiv) { // Solo sulla pagina archivio
          const permanentDeleteButtons = document.querySelectorAll('.permanent-delete-button');
           permanentDeleteButtons.forEach(button => {
@@ -72,6 +74,13 @@ const addPaintButton = document.getElementById('addPaintButton');
 const paintListDiv = document.getElementById('paintList'); // Questo esiste solo su index.html
 const searchInput = document.getElementById('searchInput');
 
+// *** AGGIUNTA: Riferimenti agli elementi della sezione autenticazione in index.html ***
+// Li dichiariamo qui fuori dal blocco if per poterli usare nel blocco if stesso
+const authSection = document.getElementById('authSection');
+const authTitle = document.getElementById('authTitle');
+// *** FINE AGGIUNTA ***
+
+
 // Esegui la logica della pagina principale SOLO se l'elemento paintListDiv esiste
 if (paintListDiv) {
 
@@ -79,17 +88,31 @@ if (paintListDiv) {
     function updateAuthState() {
         const authorized = isUserAuthorized();
 
+        // *** MODIFICA: Aggiorna la sezione autenticazione ***
         if (currentUser) {
-            if (loginForm) loginForm.style.display = 'none';
-            if (logoutButton) logoutButton.style.display = 'block';
-            if (addPaintForm) addPaintForm.style.display = authorized ? 'block' : 'none'; // Mostra/nascondi form aggiunta in base all'autorizzazione
+            // Utente autenticato
+            if (authSection) authSection.classList.add('authenticated'); // Aggiungi classe per background image
+            if (authTitle) authTitle.style.display = 'none'; // Nascondi titolo autenticazione
+            if (loginForm) loginForm.style.display = 'none'; // Nascondi form di login/signup
+            if (logoutButton) logoutButton.style.display = 'block'; // Mostra pulsante logout (lo facciamo display: block per centrarlo via flexbox nel CSS)
+            if (addPaintForm) addPaintForm.style.display = authorized ? 'block' : 'none'; // Mostra/nascondi form aggiunta
             if (addPaintButton) addPaintButton.disabled = !authorized; // Abilita/disabilita pulsante aggiunta
+             // Resetta il messaggio di autenticazione se era presente un errore precedente al login
+            if (authMessage) authMessage.textContent = '';
+
         } else {
-            if (loginForm) loginForm.style.display = 'block';
-            if (logoutButton) logoutButton.style.display = 'none';
-            if (addPaintForm) addPaintForm.style.display = 'none';
-            if (addPaintButton) addPaintButton.disabled = true;
+            // Utente non autenticato
+             if (authSection) authSection.classList.remove('authenticated'); // Rimuovi classe background image
+            if (authTitle) authTitle.style.display = 'block'; // Mostra titolo autenticazione
+            if (loginForm) loginForm.style.display = 'block'; // Mostra form di login/signup
+            if (logoutButton) logoutButton.style.display = 'none'; // Nascondi pulsante logout
+            if (addPaintForm) addPaintForm.style.display = 'none'; // Nascondi form aggiunta
+            if (addPaintButton) addPaintButton.disabled = true; // Disabilita pulsante aggiunta
+             // Potresti voler pulire i campi email/password qui opzionalmente
+             if (emailInput) emailInput.value = '';
+             if (passwordInput) passwordInput.value = '';
         }
+        // *** FINE MODIFICA ***
 
         // Aggiorna lo stato dei pulsanti Modifica ed Elimina nella lista vernici principale
         const editButtons = document.querySelectorAll('.edit-button');
@@ -335,12 +358,12 @@ if (paintListDiv) {
         } else {
             paintListDiv.innerHTML = '<p>Nessuna vernice presente in magazzino.</p>';
         }
-        updateAuthState(); // Aggiorna lo stato dei pulsanti dopo aver caricato la lista
+        // updateAuthState() viene chiamata dal listener globale onAuthStateChanged
     });
 
 
     // Function to delete a paint from Firebase (moves to archive if authorized)
-    function deletePaint(paintId) { // <<<<<<<<<<<< Definita qui, dentro il blocco index.html
+    function deletePaint(paintId) {
         if (isUserAuthorized()) { // Controllo autorizzazione
             const paintRefToDelete = ref(database, `paints/${paintId}`);
             get(paintRefToDelete) // Leggi i dati prima di eliminare
@@ -380,7 +403,7 @@ if (paintListDiv) {
     }
 
     // Function to start editing a paint
-    function startEditPaint(paintId, paintItemElement) { // <<<<<<<<<<<< Definita qui
+    function startEditPaint(paintId, paintItemElement) {
         // Assicurati che l'utente sia autorizzato prima di iniziare la modifica
         if (!isUserAuthorized()) {
             alert('Non sei autorizzato a modificare una vernice.');
@@ -442,7 +465,7 @@ if (paintListDiv) {
     }
 
     // Function to save paint changes
-    function savePaintChanges(paintId, paintItemElement) { // <<<<<<<<<<<< Definita qui
+    function savePaintChanges(paintId, paintItemElement) {
         // Assicurati che l'utente sia autorizzato prima di salvare
         if (!isUserAuthorized()) {
              alert('Non sei autorizzato a salvare le modifiche.');
@@ -486,7 +509,7 @@ if (paintListDiv) {
     }
 
     // Function to cancel paint editing
-    function cancelEditPaint(paintId, paintItemElement) { // <<<<<<<<<<<< Definita qui
+    function cancelEditPaint(paintId, paintItemElement) {
         // Trova i dati originali della vernice
         const originalPaint = allPaints.find(p => p.id === paintId);
         if (!originalPaint || !paintItemElement) return;
@@ -607,12 +630,11 @@ if (archivedPaintListDiv) {
         } else {
             archivedPaintListDiv.innerHTML = '<p>Nessuna vernice archiviata.</p>';
         }
-        // Non c'è bisogno di chiamare updateAuthState qui perché gli elementi specifici dell'auth non sono presenti
     });
 
 
     // Function to delete a paint permanently from the archive (only if authorized)
-    function deleteArchivedPaintPermanently(paintId) { // <<<<<<<<<<<< Definita qui, dentro il blocco archivio.html
+    function deleteArchivedPaintPermanently(paintId) {
          if (isUserAuthorized()) { // Controllo autorizzazione anche qui
              const paintRefToDelete = ref(database, `archived_paints/${paintId}`);
              // Aggiungi un prompt di conferma prima di eliminare definitivamente
